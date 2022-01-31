@@ -6,9 +6,14 @@ import com.hanghae.hanghaespringv2.dto.ResponseDTO;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +39,12 @@ public class BoardApiController {
                 .toUri();
 
         return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "게시글이 작성되었습니다.", location));
+    }
+
+    @GetMapping("/posts")
+    public Page<Board> getPosts(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC)
+                                 Pageable pageable) {
+
+        return boardService.getPosts(pageable);
     }
 }

@@ -11,6 +11,25 @@ function getPosts() {
         url: '/posts',
         success: function (response) {
             console.log(response);
+            for (let i = 0; i < response['content'].length; i++) {
+                let board = response['content'][i];
+
+                let id = board['id'];
+                let title = board['title'];
+                let author = board['user']['username'];
+                let createdAt = board['createdAt'];
+
+                console.log(id, title, author, createdAt);
+
+                let temp_html = `<tr>
+                              <th scope="row">${id}</th>
+                              <td>${author}</td>
+                              <td><a href="javascript:void(0)">${title}</a> </td>
+                              <td>${createdAt}</td>
+                            </tr>`;
+
+                $('#posts-box').append(temp_html);
+            }
         }
     })
 }

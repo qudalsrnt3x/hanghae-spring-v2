@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable(); // TODO 테스트 끝나면 적용해봐야겠다.
         http.authorizeRequests()
-                .antMatchers("/", "/auth/**", "/js/**")
+                .antMatchers("/", "/auth/**", "/js/**", "/posts")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
