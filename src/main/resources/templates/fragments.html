@@ -25,8 +25,16 @@
         <div class="collapse navbar-collapse" id="navbar4">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"> <a class="nav-link" href="/"><i class="fa fa-fw fa-home"></i>HOME</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#"><i class="fa fa-fw fa-user"></i>USER<br></a> </li>
-                <li class="nav-item"> <a class="nav-link" href="/auth/login"><i class="fa fa-fw fa-sign-in"></i>LogIn</a> </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" href="#"><i class="fa fa-fw fa-user"></i>MYPAGE<br></a>
+                </li>
+
+                <li class="nav-item" th:if="${#authorization.expr('isAuthenticated()')}">
+                    <a class="nav-link" href="/auth/logout"><i class="fa fa-fw fa-sign-in"></i>Logout</a>
+                </li>
+                <li class="nav-item" th:unless="${#authorization.expr('isAuthenticated()')}">
+                    <a class="nav-link" href="/auth/login"><i class="fa fa-fw fa-sign-in"></i>Login</a>
+                </li>
             <!--</ul> <a class="btn navbar-btn ml-md-2 text-dark btn-info">로그아웃</a>-->
         </div>
     </div>

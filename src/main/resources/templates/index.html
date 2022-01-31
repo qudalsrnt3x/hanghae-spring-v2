@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments.html :: head"></head>
 
 <body>
@@ -12,8 +12,11 @@
     <div class="container">
         <div class="row">
             <div class="bg-white p-5 mx-auto col-md-8 col-10">
-                <h3 class="display-3">나의의 항해 블로그</h3>
-                <p class="mb-3 lead">항해99 5기</p>
+                <h3 class="display-3">나의 항해 블로그</h3>
+                <span th:if="${#authorization.expr('isAuthenticated()')}" class="mb-3 lead"
+                   th:text="${#authentication.name}"></span>
+                <span th:if="${#authorization.expr('isAuthenticated()')}"> 님 안녕하세요.</span>
+                <p th:unless="${#authorization.expr('isAuthenticated()')}" class="mb-3 lead">항해99 5기</p>
                 <p class="mb-4">항해 기간 중 생각난 것들을 간단하게 정리해보세요.</p>
                 <!-- Button to Open the Modal -->
                 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
