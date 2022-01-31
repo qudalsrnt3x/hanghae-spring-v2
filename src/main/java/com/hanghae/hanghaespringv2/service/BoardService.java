@@ -33,4 +33,12 @@ public class BoardService {
     public Page<Board> getPosts(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Board getPostsById(Long id) {
+
+        return boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id = " + id)
+        );
+    }
 }
