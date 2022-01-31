@@ -2,15 +2,20 @@ $(document).ready(function (){
     getPosts();
 })
 
-function getPosts() {
+function getPosts(page) {
     // 1. 기존 메모 내용 지운다.
     $('#posts-box').empty();
+    $('#posts-page').empty();
+
+    if (page === undefined) {
+        page = 0;
+    }
     // 2. 게시글 목록 불러오기
     $.ajax({
         type: 'GET',
-        url: '/posts',
+        url: `/posts?page=${page}`,
         success: function (response) {
-            console.log(response);
+            //console.log(response);
             for (let i = 0; i < response['content'].length; i++) {
                 let board = response['content'][i];
 
@@ -18,8 +23,6 @@ function getPosts() {
                 let title = board['title'];
                 let author = board['user']['username'];
                 let createdAt = board['createdAt'];
-
-                console.log(id, title, author, createdAt);
 
                 let temp_html = `<tr>
                               <th scope="row">${id}</th>
@@ -30,8 +33,23 @@ function getPosts() {
 
                 $('#posts-box').append(temp_html);
             }
+
+            // 페이징 처리
+            let number = response['number'];
+            let first = response['first'];
+            let last = response['last'];
+
+
+            let page_html = `
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item ${first ? 'disabled':''}"> <a href="javascript:void(0)" class="page-link" onclick="getPosts(${number - 1})"> <span>Previous</span></a> </li>
+                        <li class="page-item ${last ? 'disabled':''}"> <a href="javascript:void(0)" class="page-link" onclick="getPosts(${number + 1})"> <span>Next</span></a> </li>
+                    </ul>
+                `;
+
+            $('#posts-page').append(page_html);
         }
-    })
+    });
 }
 
 let index = {
