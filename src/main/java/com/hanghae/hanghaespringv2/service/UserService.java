@@ -17,7 +17,7 @@ public class UserService {
     public final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public User signup(UserDTO user) {
+    public void signup(UserDTO user) {
 
         // 비밀번호 암호화
         String rawPassword = user.getPassword();
@@ -31,6 +31,6 @@ public class UserService {
                 .build();
 
         // 회원 저장
-        return userRepository.save(createUser);
+        userRepository.save(createUser);
     }
 }

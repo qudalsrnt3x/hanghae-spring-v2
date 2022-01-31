@@ -25,7 +25,7 @@ public class UserApiController {
         System.out.println("UserApiController.signup");
 
         // 회원가입 구현
-        User savedUser = userService.signup(user);
+        userService.signup(user);
 
         return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "회원가입 완료"));
 
