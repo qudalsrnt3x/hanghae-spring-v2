@@ -27,4 +27,6 @@ public class User extends Timestamped {
     private String password;
 
     private String email;
+
+    private Role role;
 }
