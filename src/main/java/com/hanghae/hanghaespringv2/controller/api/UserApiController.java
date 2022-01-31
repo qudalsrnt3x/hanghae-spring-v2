@@ -27,12 +27,7 @@ public class UserApiController {
         // 회원가입 구현
         User savedUser = userService.signup(user);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedUser.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "회원가입 완료"));
 
     }
 }
