@@ -23,7 +23,7 @@ public class UserApiController {
         // 회원가입 구현
         userService.signup(user);
 
-        return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "회원가입 완료"));
+        return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "회원가입 완료", null));
 
     }
 }
