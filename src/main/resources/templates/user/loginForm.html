@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments.html :: head"></head>
+
+<body>
+<!-- nav -->
+<div th:replace="fragments.html :: nav"></div>
+<!-- /nav -->
+
+<div class="py-5 bg-light" style="">
+    <div class="container">
+        <div class="row">
+            <div class="p-5 col-md-7 d-flex flex-column justify-content-center">
+                <h3 class="display-4 mb-3">항해99 블로그</h3>
+                <p class="mb-4 lead">Seem to dwell in my soul and absorb its power, like the form of a beloved mistress, then I often think with longing, Oh, would I could describe these conceptions.</p>
+            </div>
+            <div class="p-5 col-md-5">
+                <form action="/login" method="post">
+                    <div class="form-group"> <label>Username</label>
+                        <input name="username" class="form-control" placeholder="write your username" required="required" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="write your password" required="required">
+                    </div>
+                    <button type="submit" class="btn mt-4 btn-block p-2 btn-outline-primary"><b>로그인</b></button>
+                </form>
+                <div class="row">
+                    <div class="col-md-6 mt-3">
+                        <a class="btn btn-block p-2 btn-secondary text-light" href="/oauth2/authorization/google"><b>구글 로그인&nbsp;</b>
+                        </a></div>
+                    <div class="col-md-6 mt-3">
+                        <a class="btn btn-block p-2 btn-success text-light" href="/oauth2/authorization/naver"><b>네이버 로그인</b>
+                        </a></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mt-3">
+                        <h6 class="text-center text-right" >회원이 아니신가요? &nbsp;
+                            <a href="/auth/join" style="text-align: center">회원가입</a>
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div th:replace="fragments.html :: footer"></div>
+<!-- /footer -->
+
+</body>
+</html>

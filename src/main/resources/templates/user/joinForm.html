@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments.html :: head"></head>
+
+<body>
+<!-- nav -->
+<div th:replace="fragments.html :: nav"></div>
+<!-- /nav -->
+
+<div class="py-5 bg-light" style="">
+    <div class="container">
+        <div class="row">
+            <div class="p-5 col-md-7 d-flex flex-column justify-content-center">
+                <h3 class="display-4 mb-3">항해99 블로그</h3>
+                <p class="mb-4 lead">Seem to dwell in my soul and absorb its power, like the form of a beloved mistress, then I often think with longing, Oh, would I could describe these conceptions.</p>
+            </div>
+            <div class="p-5 col-md-5">
+                <form action="/join" method="post">
+                    <div class="form-group"> <label>Username</label>
+                        <input name="username" class="form-control" placeholder="username" required="required" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input name="password" type="password" class="form-control" placeholder="password" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input name="email" type="email" class="form-control" placeholder="Email" required="required">
+                    </div>
+                    <button type="submit" class="btn mt-4 btn-block p-2 btn-outline-primary"><b>회원가입</b></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<div th:replace="fragments.html :: footer"></div>
+<!-- /footer -->
+
+</body>
+</html>
