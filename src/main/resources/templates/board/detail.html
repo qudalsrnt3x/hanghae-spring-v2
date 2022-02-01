@@ -14,7 +14,7 @@
 <div th:replace="fragments.html :: main"></div>
 <!-- /main -->
 
-<div class="py-5" id="posts-detail">
+<div class="py-4" id="posts-detail">
     <div class="container" id="detail-box">
         <div class="row" >
             <div class="col-md-6" >
@@ -31,6 +31,31 @@
                         <h4 th:text="${posts.content}"></h4>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="댓글을 작성해주세요.">
+                        <div class="input-group-append">
+                            <button class="btn btn-info" type="button"><i class="fa fa-reply"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div> 내용 </div>
+                        <div class="d-flex"> 작성자 : 나야나 &nbsp;
+                            <button class="badge badge-dark badge-pill">삭제</button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
