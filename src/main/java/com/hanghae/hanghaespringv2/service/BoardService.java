@@ -41,4 +41,9 @@ public class BoardService {
                 () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id = " + id)
         );
     }
+
+    @Transactional
+    public void deletePost(Long id) {
+        boardRepository.deleteById(id);
+    }
 }

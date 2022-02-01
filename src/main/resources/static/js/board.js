@@ -8,7 +8,8 @@ let index = {
             this.save();
         });
 
-        // 게시물 상세 조회 함수
+        let username = [[${principal.user.id}]]
+        console.log(username);
     },
 
     save: function () {
@@ -111,10 +112,12 @@ let index = {
                                     <h2 class="pl-1">${title}</h2>
                                   </div>
                                   <div class="col-md-6 text-right">
+                                    <button  class="btn btn-warning" type="button" onclick="index.showList()">수정</button>
+                                    <button  class="btn btn-danger" type="button" onclick="index.showList()">삭제</button>
                                     <button class="btn btn-primary" type="button" onclick="index.showList()">목록</button>
                                   </div>
                                 </div>
-                                <div class="row">
+                                <div class="row"> 
                                   <div class="col-md-12">
                                     <div class="card">
                                       <div class="card-header">작성자 : ${author}</div>
@@ -127,6 +130,7 @@ let index = {
                                 </div>`;
 
             $('#detail-box').append(temp_html);
+
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

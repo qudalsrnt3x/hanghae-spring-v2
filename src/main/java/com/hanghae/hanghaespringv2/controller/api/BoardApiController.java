@@ -50,4 +50,11 @@ public class BoardApiController {
 
         return boardService.getPostsById(id);
     }
+
+    @DeleteMapping("/posts/{id}")
+    public Long deletePost(@PathVariable Long id) {
+
+        boardService.deletePost(id);
+        return id;
+    }
 }
