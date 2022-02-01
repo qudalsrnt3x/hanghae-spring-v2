@@ -10,30 +10,9 @@
 <div th:replace="fragments.html :: nav"></div>
 <!-- /nav -->
 
-<div class="py-5 text-center" style="background-image: url('https://static.pingendo.com/cover-bubble-dark.svg');background-size:cover;">
-    <div class="container">
-        <div class="row">
-            <div class="bg-white p-5 mx-auto col-md-8 col-10">
-                <h3 class="display-3">나의 항해 블로그</h3>
-                <span th:if="${#authorization.expr('isAuthenticated()')}" class="mb-3 lead"
-                   th:text="${#authentication.name}"></span>
-                <span th:if="${#authorization.expr('isAuthenticated()')}"> 님 안녕하세요.</span>
-                <p th:unless="${#authorization.expr('isAuthenticated()')}" class="mb-3 lead">항해99 5기</p>
-                <p class="mb-4">항해 기간 중 생각난 것들을 간단하게 정리해보세요.</p>
-                <!-- Button to Open the Modal -->
-                <button th:if="${#authorization.expr('isAuthenticated()')}" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
-                    게시글 작성
-                </button>
-                <button th:unless="${#authorization.expr('isAuthenticated()')}" type="button" class="btn btn-outline-primary" onclick="goLogin()">
-                    게시글 작성
-                </button>
-
-
-
-            </div>
-        </div>
-    </div>
-</div>
+<!-- main -->
+<div th:replace="fragments.html :: main"></div>
+<!-- /main -->
 
 <div class="py-5" id="posts-list" >
     <div class="container">
@@ -56,12 +35,7 @@
                         </tr>
                         </thead>
                         <tbody id="posts-box">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>Otto</td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -73,56 +47,8 @@
     </div>
 </div>
 
-<div class="py-5" id="posts-detail" style="display: none">
-    <div class="container" id="detail-box">
-        <div class="row" >
-            <div class="col-md-6" >
-                <h2 class="pl-1">제목</h2>
-            </div>
-            <div class="col-md-6 text-right"><a class="btn btn-primary" href="#">목록</a></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">작성자 :</div>
-                    <div class="card-header">작성일 :</div>
-                    <div class="card-body h-50">
-                        <h4>내용</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Modal -->
-<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">게시글 작성</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="post-title" class="col-form-label">제목</label>
-                    <input type="text" class="form-control" id="post-title">
-                </div>
-                <div class="form-group">
-                    <label for="post-contents" class="col-form-label">내용</label>
-                    <textarea class="form-control" id="post-contents"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="btn-board-save">저장</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="fragments.html :: modal"></div>
 <!-- /Modal -->
 
 <hr/>

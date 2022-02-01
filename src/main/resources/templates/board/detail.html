@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments.html :: head"></head>
+
+<body>
+<!-- nav -->
+<div th:replace="fragments.html :: nav"></div>
+<!-- /nav -->
+
+<!-- main -->
+<div th:replace="fragments.html :: main"></div>
+<!-- /main -->
+
+<div class="py-5" id="posts-detail">
+    <div class="container" id="detail-box">
+        <div class="row" >
+            <div class="col-md-6" >
+                <h2 class="pl-1" th:text="${posts.title}">제목</h2>
+            </div>
+            <div class="col-md-6 text-right"><a class="btn btn-primary" href="/">목록</a></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" th:text="|작성자 : ${posts.user.username}|"></div>
+                    <div class="card-header" th:text="|작성일 : ${posts.createdAt}|"></div>
+                    <div class="card-body h-50">
+                        <h4 th:text="${posts.content}"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div th:replace="fragments.html :: modal"></div>
+<!-- /Modal -->
+
+<hr/>
+
+<!-- footer -->
+<div th:replace="fragments.html :: footer"></div>
+<!-- /footer -->
+
+<script>
+    function goLogin() {
+        if(confirm("로그인이 필요합니다.")){
+            location.href = '/auth/login';
+        }
+
+    }
+</script>
+<script src="/js/board.js" th:inline="javascript"></script>
+</body>
+</html>

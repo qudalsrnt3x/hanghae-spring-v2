@@ -45,11 +45,6 @@ public class BoardApiController {
         return boardService.getPosts(pageable);
     }
 
-    @GetMapping("/posts/{id}")
-    public Board getPostsById(@PathVariable Long id) {
-
-        return boardService.getPostsById(id);
-    }
 
     @DeleteMapping("/posts/{id}")
     public Long deletePost(@PathVariable Long id) {
