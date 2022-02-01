@@ -42,7 +42,7 @@ let index = {
 
     getPosts: function (page) {
         // 1. 기존 메모 내용 지운다.
-
+        $('#posts-box').empty();
         $('#posts-page').empty();
 
         if (page === undefined) {
