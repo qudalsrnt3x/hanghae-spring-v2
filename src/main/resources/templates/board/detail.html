@@ -55,11 +55,10 @@
                         <div th:text="${reply.content}"> 내용 </div>
                         <div class="d-flex">
                             <button th:if="${#authentication.name} == ${reply.user.username}" class="badge badge-warning badge-pill">수정</button>&nbsp;&nbsp;
-                            <button th:if="${#authentication.name} == ${reply.user.username}" class="badge badge-danger badge-pill">삭제</button>
+                            <button th:if="${#authentication.name} == ${reply.user.username}" th:onclick="|index.deleteReply(${posts.id}, ${reply.id})|"
+                                    class="badge badge-danger badge-pill">삭제</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <div th:text="|작성자 : ${reply.user.username}|"></div>
-
-
                         </div>
                     </li>
                 </ul>

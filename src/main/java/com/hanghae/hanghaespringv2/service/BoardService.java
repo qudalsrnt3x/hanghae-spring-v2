@@ -66,4 +66,9 @@ public class BoardService {
         replyRepository.save(reply);
 
     }
+
+    @Transactional
+    public void deleteReply(Long id) {
+        replyRepository.deleteById(id);
+    }
 }

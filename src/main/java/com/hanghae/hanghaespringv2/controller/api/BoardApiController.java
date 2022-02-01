@@ -65,4 +65,11 @@ public class BoardApiController {
 
         return new ResponseDTO(HttpStatus.CREATED.value(), "게시물이 생성되었습니다.", null);
     }
+
+    @DeleteMapping("/posts/{postsId}/reply/{id}")
+    public Long deleteReply(@PathVariable Long id) {
+        boardService.deleteReply(id);
+        return id;
+    }
+
 }

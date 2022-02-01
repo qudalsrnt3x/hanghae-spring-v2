@@ -116,7 +116,25 @@ let index = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    },
+
+    deleteReply: function (postsId, replyId) {
+        //console.log(postsId, replyId);
+
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/posts/${postsId}/reply/${replyId}`
+            }).done(function (response){
+                alert('댓글이 삭제되었습니다.');
+                location.href = `/posts/${postsId}`
+            }).
+            fail(function (error) {
+
+            });
+        }
+    } // end
+
 
 }
 
