@@ -2,6 +2,7 @@ package com.hanghae.hanghaespringv2.controller.api;
 
 import com.hanghae.hanghaespringv2.config.auth.PrincipalDetails;
 import com.hanghae.hanghaespringv2.dto.BoardDTO;
+import com.hanghae.hanghaespringv2.dto.ReplyDTO;
 import com.hanghae.hanghaespringv2.dto.ResponseDTO;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.service.BoardService;
@@ -53,5 +54,15 @@ public class BoardApiController {
 
         boardService.deletePost(id);
         return id;
+    }
+
+    @PostMapping("/posts/{id}/reply")
+    public ResponseDTO saveReply(@PathVariable Long id,
+                                 @RequestBody ReplyDTO replyDTO,
+                                 @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        boardService.saveReply(id, replyDTO, principalDetails.getUser());
+
+        return new ResponseDTO(HttpStatus.CREATED.value(), "게시물이 생성되었습니다.", null);
     }
 }

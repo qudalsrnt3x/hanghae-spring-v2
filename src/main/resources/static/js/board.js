@@ -8,6 +8,11 @@ let index = {
         $('#btn-board-save').on('click', () => { // function(){}, ()=>{} this를 바인딩 하기 위해
             this.save();
         });
+
+        // 댓글 저장 함수
+        $('#btn-reply-save').on('click', () => { // function(){}, ()=>{} this를 바인딩 하기 위해
+            this.replySave();
+        });
     },
 
     save: function () {
@@ -82,6 +87,34 @@ let index = {
 
                 $('#posts-page').append(page_html);
             }
+        });
+    },
+
+    replySave: function () {
+        //alert('call save');
+
+        let id = $('#board-id').val(); // boardId
+
+        let data = {
+            content : $('#reply-content').val()
+        }
+
+        if (data.content === '') {
+            alert('댓글 내용을 입력해주세요.');
+            $('#reply-content').focus();
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/posts/${id}/reply`,
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        }).done(function (response) {
+            alert('댓글 작성이 완료 되었습니다.');
+            location.href = `/posts/${id}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
         });
     }
 

@@ -40,22 +40,26 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form class="form-group">
+                <div class="form-group">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="댓글을 작성해주세요.">
+                        <input id="board-id" type="hidden" th:value="${posts.id}">
+                        <input type="text" class="form-control" id="reply-content" placeholder="댓글을 작성해주세요.">
                         <div class="input-group-append">
-                            <button class="btn btn-info" type="button"><i class="fa fa-reply"></i></button>
+                            <button th:if="${#authorization.expr('isAuthenticated()')}" id="btn-reply-save" class="btn btn-info" type="button"><i class="fa fa-reply"></i></button>
+                            <button th:unless="${#authorization.expr('isAuthenticated()')}"  class="btn btn-info" type="button" onclick="goLogin()"><i class="fa fa-reply"></i></button>
                         </div>
                     </div>
-                </form>
+                </div>
                 <ul th:each="reply : ${posts.replys}" class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div th:text="${reply.content}"> 내용 </div>
                         <div class="d-flex">
-                            <div th:text="|작성자 : ${reply.user.username}|"></div>&nbsp;&nbsp;&nbsp;&nbsp;
-
                             <button th:if="${#authentication.name} == ${reply.user.username}" class="badge badge-warning badge-pill">수정</button>&nbsp;&nbsp;
                             <button th:if="${#authentication.name} == ${reply.user.username}" class="badge badge-danger badge-pill">삭제</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <div th:text="|작성자 : ${reply.user.username}|"></div>
+
+
                         </div>
                     </li>
                 </ul>

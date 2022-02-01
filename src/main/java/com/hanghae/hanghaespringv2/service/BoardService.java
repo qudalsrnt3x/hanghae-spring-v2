@@ -1,8 +1,11 @@
 package com.hanghae.hanghaespringv2.service;
 
 import com.hanghae.hanghaespringv2.dto.BoardDTO;
+import com.hanghae.hanghaespringv2.dto.ReplyDTO;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.model.board.BoardRepository;
+import com.hanghae.hanghaespringv2.model.reply.Reply;
+import com.hanghae.hanghaespringv2.model.reply.ReplyRepository;
 import com.hanghae.hanghaespringv2.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     @Transactional
     public Board saveBoard(BoardDTO boardDTO, User user) {
@@ -45,5 +49,21 @@ public class BoardService {
     @Transactional
     public void deletePost(Long id) {
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void saveReply(Long id, ReplyDTO replyDTO, User user) {
+        Board board = boardRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당하는 게시글을 찾을 수 없습니다.")
+        );
+
+        Reply reply = Reply.builder()
+                .board(board)
+                .content(replyDTO.getContent())
+                .user(user)
+                .build();
+
+        replyRepository.save(reply);
+
     }
 }
