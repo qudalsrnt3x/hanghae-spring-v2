@@ -133,7 +133,65 @@ let index = {
 
             });
         }
-    } // end
+    }, // end
+
+    // 수정 버튼 눌렀을 때, 기존 작성 내용을 textarea에 전달한다.
+    // 숨길 버튼을 숨기고, 나타낼 버튼을 나타낸다.
+    editReply: function (replyId) {
+        index.showEdits(replyId);
+        let contents = $(`#content-${replyId}`).text().trim();
+        $(`#textarea-${replyId}`).val(contents);
+    }, // end
+
+    showEdits: function (replyId) {
+
+        $(`#editarea-${replyId}`).show();
+        $(`#submit-${replyId}`).show();
+        $(`#cancel-${replyId}`).show();
+
+        $(`#content-${replyId}`).hide();
+        $(`#edit-${replyId}`).hide();
+        $(`#delete-${replyId}`).hide();
+    }, // end
+
+    cancelReply: function (replyId) {
+        $(`#editarea-${replyId}`).hide();
+        $(`#submit-${replyId}`).hide();
+        $(`#cancel-${replyId}`).hide();
+
+        $(`#content-${replyId}`).show();
+        $(`#edit-${replyId}`).show();
+        $(`#delete-${replyId}`).show();
+    },
+
+    updateReply: function (postsId, replyId) {
+        //console.log(postsId, replyId);
+
+        let data = {
+            content : $(`#textarea-${replyId}`).val().trim()
+        };
+
+        if (data.content === '') {
+            alert('댓글 내용을 입력해주세요.');
+            $(`#textarea-${replyId}`).focus();
+            return;
+        }
+
+        $.ajax({
+            type: 'PUT',
+            url: `/posts/${postsId}/reply/${replyId}`,
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        }).done(function (response) {
+            alert('댓글 수정이 완료 되었습니다.');
+            location.href = `/posts/${postsId}`;
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+
+
+
+    } //end
 
 
 }

@@ -71,4 +71,16 @@ public class BoardService {
     public void deleteReply(Long id) {
         replyRepository.deleteById(id);
     }
+
+
+    @Transactional
+    public void updateReply(Long id, ReplyDTO replyDTO) {
+        // 영속화 먼저
+        Reply replyEntity = replyRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id = " + id)
+        );
+
+        replyEntity.update(replyDTO);
+
+    }
 }

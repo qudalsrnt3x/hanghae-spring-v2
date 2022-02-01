@@ -63,7 +63,16 @@ public class BoardApiController {
 
         boardService.saveReply(id, replyDTO, principalDetails.getUser());
 
-        return new ResponseDTO(HttpStatus.CREATED.value(), "게시물이 생성되었습니다.", null);
+        return new ResponseDTO(HttpStatus.CREATED.value(), "댓글 작성이 완료되었습니다.", null);
+    }
+
+    @PutMapping("/posts/{postsId}/reply/{id}")
+    public ResponseDTO updateReply(@PathVariable Long id,
+                                   @RequestBody ReplyDTO replyDTO) {
+
+        boardService.updateReply(id, replyDTO);
+
+        return new ResponseDTO(HttpStatus.OK.value(), "댓글이 수정되었습니다.", null);
     }
 
     @DeleteMapping("/posts/{postsId}/reply/{id}")

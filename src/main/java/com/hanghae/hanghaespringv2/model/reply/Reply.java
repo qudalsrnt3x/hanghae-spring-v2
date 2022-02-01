@@ -1,12 +1,10 @@
 package com.hanghae.hanghaespringv2.model.reply;
 
+import com.hanghae.hanghaespringv2.dto.ReplyDTO;
 import com.hanghae.hanghaespringv2.model.Timestamped;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.model.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -33,4 +31,7 @@ public class Reply extends Timestamped {
     private User user;
 
 
+    public void update(ReplyDTO replyDTO) {
+        this.content = replyDTO.getContent();
+    }
 }
