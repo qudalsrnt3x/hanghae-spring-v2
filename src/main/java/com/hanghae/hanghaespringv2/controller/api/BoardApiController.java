@@ -2,8 +2,10 @@ package com.hanghae.hanghaespringv2.controller.api;
 
 import com.hanghae.hanghaespringv2.config.auth.PrincipalDetails;
 import com.hanghae.hanghaespringv2.dto.BoardDTO;
+import com.hanghae.hanghaespringv2.dto.CMResponseDTO;
 import com.hanghae.hanghaespringv2.dto.ReplyDTO;
 import com.hanghae.hanghaespringv2.dto.ResponseDTO;
+import com.hanghae.hanghaespringv2.handler.ex.InvalidException;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.service.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,8 +33,12 @@ public class BoardApiController {
 
     @Secured("ROLE_USER")
     @PostMapping("/posts")
-    public ResponseEntity<ResponseDTO> createPosts(@RequestBody BoardDTO boardDTO,
-                                                   @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<CMResponseDTO<?>> createPosts(@Valid @RequestBody BoardDTO boardDTO,
+                                                     @AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                     BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            throw new InvalidException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
 
         Board saveBoard = boardService.saveBoard(boardDTO, principalDetails.getUser());
 
@@ -38,7 +47,8 @@ public class BoardApiController {
                 .buildAndExpand(saveBoard.getId())
                 .toUri();
 
-        return ResponseEntity.ok(new ResponseDTO(HttpStatus.CREATED.value(), "게시글이 작성되었습니다.", location));
+        return ResponseEntity.ok(new CMResponseDTO<>(true, HttpStatus.CREATED.value(), "게시글이 저장되었습니다.",
+                location));
     }
 
     @GetMapping("/posts")
@@ -58,8 +68,12 @@ public class BoardApiController {
 
     @PostMapping("/posts/{id}/reply")
     public ResponseDTO saveReply(@PathVariable Long id,
-                                 @RequestBody ReplyDTO replyDTO,
-                                 @AuthenticationPrincipal PrincipalDetails principalDetails) {
+                                 @Valid @RequestBody ReplyDTO replyDTO,
+                                 @AuthenticationPrincipal PrincipalDetails principalDetails,
+                                 BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            throw new InvalidException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
 
         boardService.saveReply(id, replyDTO, principalDetails.getUser());
 
