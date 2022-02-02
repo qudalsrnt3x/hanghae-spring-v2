@@ -36,7 +36,7 @@ let index = {
             }
             //location.href = '/auth/loginForm';
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert(error['responseJSON']['message']);
         });
     },
 
@@ -114,7 +114,7 @@ let index = {
             alert('댓글 작성이 완료 되었습니다.');
             location.href = `/posts/${id}`;
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert(error['responseJSON']['message']);
         });
     },
 
@@ -130,7 +130,7 @@ let index = {
                 location.href = `/posts/${postsId}`
             }).
             fail(function (error) {
-
+                alert(error['responseJSON']['message']);
             });
         }
     }, // end
@@ -186,7 +186,7 @@ let index = {
             alert('댓글 수정이 완료 되었습니다.');
             location.href = `/posts/${postsId}`;
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert(error['responseJSON']['message']);
         });
 
 

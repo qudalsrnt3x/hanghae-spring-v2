@@ -125,12 +125,10 @@ let index = {
             if (response['success'] === true) {
                 alert(response['message']);
                 location.href = '/auth/login';
-            } else {
-                alert(response['message'])
+
             }
-            //location.href = '/auth/loginForm';
         }).fail(function (error){
-            console.log(error);
+            alert(error['responseJSON']['message']);
         });
     }
 
@@ -144,7 +142,7 @@ function is_nickname(asValue) {
 }
 
 function is_password(asValue) {
-    let regExp = /^(?=.*\d)[0-9a-zA-Z]{3,20}$/;
+    let regExp = /^(?=.*\d)[0-9a-zA-Z]{4,20}$/;
     return regExp.test(asValue);
 }
 
