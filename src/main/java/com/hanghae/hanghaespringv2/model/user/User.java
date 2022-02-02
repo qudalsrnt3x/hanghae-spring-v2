@@ -30,4 +30,8 @@ public class User extends Timestamped {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    private String provider;
+
+    private String providerId;
 }

@@ -39,7 +39,7 @@ public class UserApiController {
 
     @PostMapping("/auth/idCheck")
     public int idCheck(@RequestBody UserDTO userDTO) {
-        boolean isUsername = userRepository.findByUsername(userDTO.getUsername()).isPresent();
+        boolean isUsername = userRepository.findByUsername(userDTO.getUsername()) != null;
         return isUsername ? 1 : 0;
     }
 

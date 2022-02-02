@@ -25,3 +25,14 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 461799013758-vjndkt0ln9ier2qa860i57usauhvdt04.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile

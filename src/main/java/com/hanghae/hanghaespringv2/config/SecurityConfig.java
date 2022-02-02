@@ -1,6 +1,8 @@
 package com.hanghae.hanghaespringv2.config;
 
 import com.hanghae.hanghaespringv2.config.auth.CustomAuthFailureHandler;
+import com.hanghae.hanghaespringv2.oauth.PrincipalOauth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -10,15 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,7 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/auth/login")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+
+                .and()
+
+                .oauth2Login()
+                .loginPage("/auth/login")
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
     }
 
     @Bean

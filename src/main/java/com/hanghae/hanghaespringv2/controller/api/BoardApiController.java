@@ -31,7 +31,6 @@ public class BoardApiController {
 
     private final BoardService boardService;
 
-    @Secured("ROLE_USER")
     @PostMapping("/posts")
     public ResponseEntity<CMResponseDTO<?>> createPosts(@Valid @RequestBody BoardDTO boardDTO,
                                                         BindingResult bindingResult,
