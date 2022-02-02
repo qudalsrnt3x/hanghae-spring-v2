@@ -49,28 +49,33 @@ let index = {
 
     checkPw: function () {
 
+        let username = $('#username').val();
         let password = $('#password').val();
 
-        if (is_password(password)) {
-            $('.pw_check').css("display", "none");
-            $('.pw_ok').css("display", "inline-block")
-            $('.pw_duplicate').css("display", "none")
-            $('#password').css("borderColor","lightgreen")
-
-            pwCheck = true;
-        } else if(password.search($('#username').val()) > -1) {
+        if(isMatched(username, password)) {
             $('.pw_check').css("display", "none");
             $('.pw_ok').css("display", "none")
             $('.pw_duplicate').css("display", "inline-block")
             $('#password').css("borderColor","red")
             pwCheck = false;
         } else {
-            $('.pw_ok').css("display", "none")
-            $('.pw_check').css("display", "inline-block")
-            $('.pw_duplicate').css("display", "none")
-            $('#password').css("borderColor","silver")
-            pwCheck = false;
+            if (is_password(password)) {
+                $('.pw_check').css("display", "none");
+                $('.pw_ok').css("display", "inline-block")
+                $('.pw_duplicate').css("display", "none")
+                $('#password').css("borderColor","lightgreen")
+
+                pwCheck = true;
+            } else {
+                $('.pw_ok').css("display", "none")
+                $('.pw_check').css("display", "inline-block")
+                $('.pw_duplicate').css("display", "none")
+                $('#password').css("borderColor", "silver")
+                pwCheck = false;
+            }
         }
+
+
     },
 
     checkPw2: function () {
@@ -101,8 +106,8 @@ let index = {
             email: $('#email').val()
         };
 
-        if (joinCheck === false) {
-            alert('아이디를 확인해주세요.');
+        if (joinCheck === false || pwCheck === false) {
+            alert('아이디 및 패스워드를 확인해주세요.');
             $('#username').focus();
             return;
         }
@@ -117,14 +122,15 @@ let index = {
             data: JSON.stringify(data),
             contentType: 'application/json'
         }).done(function (response){
-            if (response['status'] === 201) {
-                alert("회원가입이 완료 되었습니다.")
+            if (response['success'] === true) {
+                alert(response['message']);
                 location.href = '/auth/login';
+            } else {
+                alert(response['message'])
             }
-            console.log(response);
             //location.href = '/auth/loginForm';
         }).fail(function (error){
-            alert(JSON.stringify(error));
+            console.log(error);
         });
     }
 
@@ -138,6 +144,10 @@ function is_nickname(asValue) {
 }
 
 function is_password(asValue) {
-    let regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{3,20}$/;
+    let regExp = /^(?=.*\d)[0-9a-zA-Z]{3,20}$/;
     return regExp.test(asValue);
+}
+
+function isMatched(id, pw) {
+    return pw.match(id) !== null;
 }
