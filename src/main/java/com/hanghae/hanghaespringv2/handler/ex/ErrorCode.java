@@ -2,7 +2,6 @@ package com.hanghae.hanghaespringv2.handler.ex;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor

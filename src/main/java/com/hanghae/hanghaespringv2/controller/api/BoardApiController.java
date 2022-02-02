@@ -34,11 +34,13 @@ public class BoardApiController {
     @Secured("ROLE_USER")
     @PostMapping("/posts")
     public ResponseEntity<CMResponseDTO<?>> createPosts(@Valid @RequestBody BoardDTO boardDTO,
-                                                     @AuthenticationPrincipal PrincipalDetails principalDetails,
-                                                     BindingResult bindingResult) {
-
+                                                        BindingResult bindingResult,
+                                                        @AuthenticationPrincipal PrincipalDetails principalDetails
+                                                     ) {
+        // 유효성 체크
         if (bindingResult.hasErrors())
             throw new InvalidException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+
 
         Board saveBoard = boardService.saveBoard(boardDTO, principalDetails.getUser());
 
@@ -69,8 +71,9 @@ public class BoardApiController {
     @PostMapping("/posts/{id}/reply")
     public ResponseDTO saveReply(@PathVariable Long id,
                                  @Valid @RequestBody ReplyDTO replyDTO,
-                                 @AuthenticationPrincipal PrincipalDetails principalDetails,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult,
+                                 @AuthenticationPrincipal PrincipalDetails principalDetails
+                                 ) {
 
         if (bindingResult.hasErrors())
             throw new InvalidException(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
