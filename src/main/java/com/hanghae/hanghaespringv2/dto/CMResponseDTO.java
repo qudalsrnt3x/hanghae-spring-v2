@@ -1,18 +1,15 @@
 package com.hanghae.hanghaespringv2.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.net.URI;
-
-@Getter @Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class ResponseDTO {
+@AllArgsConstructor
+public class CMResponseDTO<T> {
+    private boolean success;
     private int status;
     private String message;
-    private URI location;
-
+    private T response;
 }

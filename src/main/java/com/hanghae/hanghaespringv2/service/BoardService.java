@@ -2,6 +2,7 @@ package com.hanghae.hanghaespringv2.service;
 
 import com.hanghae.hanghaespringv2.dto.BoardDTO;
 import com.hanghae.hanghaespringv2.dto.ReplyDTO;
+import com.hanghae.hanghaespringv2.handler.ex.NotFoundException;
 import com.hanghae.hanghaespringv2.model.board.Board;
 import com.hanghae.hanghaespringv2.model.board.BoardRepository;
 import com.hanghae.hanghaespringv2.model.reply.Reply;
@@ -42,7 +43,7 @@ public class BoardService {
     public Board getPostsById(Long id) {
 
         return boardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 게시글이 없습니다. id = " + id)
+                () -> new NotFoundException("해당하는 게시글을 찾을 수 없습니다.")
         );
     }
 
@@ -54,7 +55,7 @@ public class BoardService {
     @Transactional
     public void saveReply(Long id, ReplyDTO replyDTO, User user) {
         Board board = boardRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당하는 게시글을 찾을 수 없습니다.")
+                () -> new NotFoundException("해당하는 게시글을 찾을 수 없습니다.")
         );
 
         Reply reply = Reply.builder()
@@ -77,7 +78,7 @@ public class BoardService {
     public void updateReply(Long id, ReplyDTO replyDTO) {
         // 영속화 먼저
         Reply replyEntity = replyRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다. id = " + id)
+                () -> new NotFoundException("해당 댓글이 존재하지 않습니다.")
         );
 
         replyEntity.update(replyDTO);
